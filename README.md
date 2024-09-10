@@ -34,7 +34,7 @@ You can use the following commands to interact with Safetensors files:
 You can also use this tool programmatically:
 
 ```python
-from safetensor_utils import SafetensorsWrapper, read_safetensors_json
+from safetensors_utils import SafetensorsWrapper, read_safetensors_json
 
 # Read metadata from safetensors header
 metadata = read_safetensors_json('path_to_file.safetensors')
