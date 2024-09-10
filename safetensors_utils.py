@@ -19,10 +19,10 @@ def read_safetensors_json(file_path):
         header = json.loads(header_str)
         return header
 
-class SafeTensorsWrapper:
+class SafetensorsWrapper:
     def __init__(self, file_paths, framework="pt", **kv):
         """
-        Initialize the SafeTensorsWrapper with one or multiple safetensors files.
+        Initialize the SafetensorsWrapper with one or multiple safetensors files.
 
         Args:
             file_paths (str or list of str): Paths to the safetensors file(s).
@@ -89,7 +89,7 @@ class SafeTensorsWrapper:
 
     def __repr__(self):
         """Return a string representation of the object."""
-        return f"<SafeTensorsWrapper: {len(self)} tensors from {len(self._tensors)} files>"
+        return f"<SafetensorsWrapper: {len(self)} tensors from {len(self._tensors)} files>"
 
     def get_index(self):
         """
@@ -158,7 +158,7 @@ def main():
     def list_tensors(file_paths):
         """List all tensors from one or more Safetensors files."""
         try:
-            wrapper = SafeTensorsWrapper(file_paths)
+            wrapper = SafetensorsWrapper(file_paths)
             for tensor_name in wrapper.keys():
                 print(tensor_name)
         except BrokenPipeError:
@@ -168,7 +168,7 @@ def main():
     def generate_index(file_paths):
         """Generate and display the index (metadata and weight map) for Safetensors files."""
         try:
-            wrapper = SafeTensorsWrapper(file_paths)
+            wrapper = SafetensorsWrapper(file_paths)
             index = wrapper.get_index()
             print(json.dumps(index, indent=2))
         except BrokenPipeError:
