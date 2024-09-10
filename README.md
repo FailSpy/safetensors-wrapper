@@ -1,6 +1,6 @@
 # Safetensor Wrapper
 
-A lightweight command-line tool and Python wrapper for managing Safetensors files, commonly used to store tensor data in machine learning models. This utility allows you to read metadata, list tensors, and generate tensor indices across one or more Safetensors files.
+A lightweight command-line tool and Python wrapper for managing Safetensors files, commonly used to store tensor data in machine learning models. This utility allows you to read metadata, list tensors, and generate tensor indices across one or more Safetensors files. As a wrapper, it allows accessing tensors from multiple files under a single dict-like interface.
 
 ## CLI tool Features
 - **Read Metadata**: Extracts and displays the JSON metadata from a Safetensors file.
@@ -34,26 +34,30 @@ You can use the following commands to interact with Safetensors files:
 You can also use this tool programmatically:
 
 ```python
-from safetensors_utilities import SafeTensorsWrapper, read_safetensors_json
+from safetensor_utils import SafeTensorsWrapper, read_safetensors_json
 
 # Read metadata from safetensor header
 metadata = read_safetensors_json('path_to_file.safetensors')
 
+# Create a SafeTensorsWrapper wrapping multiple files a single interface
+wrapper = SafeTensorsWrapper(['file1.safetensors', 'file2.safetensors', 'file3.safetensors'])
+
+# All the safetensor files are now "lazy-loaded" and can access any of the file tensors as if they were all in a single dictionary.
+
 # List tensors
-wrapper = SafeTensorsWrapper(['file1.safetensors'])
 tensor_names = wrapper.keys()
 
 # Access a tensor by name
 tensor = wrapper['tensor_name']
 
-# Lazy loop through tensors
+# Lazy loop through all tensors
 for tensor in wrapper:
   print(tensor)
 
 # Fully load all tensors as a dict:
 state_dict = dict(wrapper)
 
-# Generate safetensors.index.json structure as Python dict
+# Generate safetensors.index.json-like structure as Python dict
 index = wrapper.get_index()
 ```
 
